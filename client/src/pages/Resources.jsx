@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Post from '../Post';
+import Resource from '../Resource';
 
 export default function IndexPage() {
   const [posts, setPosts] = useState([]);
@@ -13,7 +13,7 @@ export default function IndexPage() {
       .then(userInfo => {
         setUserInfo(userInfo);
         if (userInfo) {
-          fetch('http://localhost:4000/post')
+          fetch('http://localhost:4000/resources')
             .then(response => response.json())
             .then(posts => setPosts(posts))
             .catch(error => console.error('Error fetching posts:', error));
@@ -27,7 +27,7 @@ export default function IndexPage() {
       {userInfo ? (
         posts.length > 0 ? (
           posts.map(post => (
-            <Post {...post} key={post._id} />
+            <Resource {...post} key={post._id} />
           ))
         ) : (
           <p>No posts available.</p>

@@ -3,6 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./models/User");
 const Post = require("./models/Post");
+const Resources =require("./models/Resources");
 const app = express();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -80,6 +81,31 @@ app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
   });
 });
 
+app.post("/resources", uploadMiddleware.single("file"), async (req, res) => {
+  const { originalname, path } = req.file;
+  const parts = originalname.split(".");
+  const ext = parts[parts.length - 1];
+  const newPath = path + "." + ext;
+  fs.renameSync(path, newPath);
+
+  const { token } = req.cookies;
+  jwt.verify(token, secret, {}, async (err, info) => {
+    if (err) throw err;
+    const { title, summary, content,cloudpath } = req.body;
+    const postDoc = await Resources.create({
+      title,
+      summary,
+      cloudpath,
+      content,
+      cover: newPath,
+      author: info.id,
+    });
+
+    res.json(postDoc);
+  });
+});
+
+
 app.get("/profile", (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, (err, info) => {
@@ -89,7 +115,8 @@ app.get("/profile", (req, res) => {
 });
 
 app.post("/logout", (req, res) => {
-  res.cookie("token", "".json("ok"));
+  res.cookie("token", "").json("ok");
+  redirect('/');
 });
 
 app.get("/post", async (req, res) => {
@@ -100,6 +127,18 @@ app.get("/post", async (req, res) => {
 app.get('/post/:id',async (req,res)=>{
   const {id}=req.params;
   const postDoc=await Post.findById(id).populate('author',['username']);
+  res.json(postDoc);
+}
+)
+
+app.get("/resources", async (req, res) => {
+  res.json(await Resources.find().populate('author',['username']).sort({createdAt:-1}).limit(20));
+});
+
+
+app.get('/resources/:id',async (req,res)=>{
+  const {id}=req.params;
+  const postDoc=await Resources.findById(id).populate('author',['username']);
   res.json(postDoc);
 }
 )
