@@ -13,7 +13,7 @@ export default function PostPage() {
   }, [id]);
 
   if (!postInfo) return 'Job expired';
-
+console.log(postInfo);
   return (
     <div className='post-page'>
       <div className='image'>
@@ -22,6 +22,7 @@ export default function PostPage() {
 
       <div className='post-content'>
         <h1 className='post-title'>{postInfo.title}</h1>
+        <h2><Link to={postInfo.website}>Visit website</Link></h2>
         <div dangerouslySetInnerHTML={{ __html: postInfo.content }} />
       </div>
 

@@ -8,6 +8,7 @@ export default function CreatePost() {
   const [summary, setSummary] = useState("");
   const [content, setContent] = useState("");
   const [files, setFiles] = useState("");
+  const [website, setWebsite] = useState("");
   const [redirect, setRedirect] = useState(false);
   const filepathRef = useRef(""); // Using useRef instead of useState for filepath
 
@@ -47,6 +48,7 @@ export default function CreatePost() {
     data.set("summary", summary);
     data.set("content", content);
     data.set("file", files[0]);
+    data.set("website",website);
     data.set("cloudpath", filepathRef.current); // Use the updated filepath from useRef
 
     console.log(filepathRef.current); // Log the updated filepath after it should have been updated
@@ -78,6 +80,12 @@ export default function CreatePost() {
         placeholder="Summary"
         value={summary}
         onChange={(e) => setSummary(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="website link"
+        value={website}
+        onChange={(e) => setWebsite(e.target.value)}
       />
       <input type="file" onChange={(ev) => setFiles(ev.target.files)} />
       <ReactQuill value={content} onChange={(newVal) => setContent(newVal)} />

@@ -9,6 +9,7 @@ export default function CreateResources() {
   const [content, setContent] = useState("");
   const [files, setFiles] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const [website,setWebsite]=useState("");
   const filepathRef = useRef(""); // Using useRef instead of useState for filepath
 
   async function uploadImage() {
@@ -47,6 +48,7 @@ export default function CreateResources() {
     data.set("summary", summary);
     data.set("content", content);
     data.set("file", files[0]);
+    data.set("website",website);
     data.set("cloudpath", filepathRef.current); // Use the updated filepath from useRef
 
     console.log(filepathRef.current); // Log the updated filepath after it should have been updated
@@ -79,6 +81,7 @@ export default function CreateResources() {
         value={summary}
         onChange={(e) => setSummary(e.target.value)}
       />
+      <input type="text" value={website} placeholder="website link" onChange={(ev) => setWebsite(ev.target.value)} />
       <input type="file" onChange={(ev) => setFiles(ev.target.files)} />
       <ReactQuill value={content} onChange={(newVal) => setContent(newVal)} />
       <button type="submit">Create Post</button>

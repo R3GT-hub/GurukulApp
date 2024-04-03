@@ -22,7 +22,9 @@ export default function PostPage() {
 
       <div className='post-content'>
         <h1 className='post-title'>{postInfo.title}</h1>
+        <Link to={postInfo.website}>Visit Website</Link>
         <div dangerouslySetInnerHTML={{ __html: postInfo.content }} />
+
       </div>
 
       <Link to="/" className="back-link">Back to Home</Link>

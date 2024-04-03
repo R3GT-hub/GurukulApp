@@ -26,12 +26,17 @@ mongoose.connect(
 );
 
 app.post("/register", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password,email } = req.body;
+  console.log("req.body: ", username + " " + email+" "+password);
   try {
+
+    const hashPass =  bcrypt.hashSync(password, 10);
     const userDoc = await User.create({
       username,
-      password: bcrypt.hashSync(password, salt),
+      email,
+      password: hashPass,
     });
+    console.log("userDoc: ",userDoc);
     res.json(userDoc);
   } catch (e) {
     console.log(e);
@@ -67,13 +72,14 @@ app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, async (err, info) => {
     if (err) throw err;
-    const { title, summary, content,cloudpath } = req.body;
+    const { title, summary, content,cloudpath ,website} = req.body;
     const postDoc = await Post.create({
       title,
       summary,
       cloudpath,
       content,
       cover: newPath,
+      website:website,
       author: info.id,
     });
 
@@ -91,13 +97,14 @@ app.post("/resources", uploadMiddleware.single("file"), async (req, res) => {
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, async (err, info) => {
     if (err) throw err;
-    const { title, summary, content,cloudpath } = req.body;
+    const { title, summary, content,cloudpath ,website} = req.body;
     const postDoc = await Resources.create({
       title,
       summary,
       cloudpath,
       content,
       cover: newPath,
+      website:website,
       author: info.id,
     });
 

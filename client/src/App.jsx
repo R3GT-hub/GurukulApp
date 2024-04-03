@@ -10,6 +10,7 @@ import PostPage from "./pages/PostPage";
 import CreateResources from "./pages/CreateResources";
 import Resources from "./pages/Resources"
 import ResourcePage from "./pages/ResourcePage"
+import ContactAdmin from "./pages/ContactAdmin";
 function App() {
   return (
     <UserContextProvider>
@@ -23,6 +24,8 @@ function App() {
       <Route path="/createresource" element={<CreateResources/>}/>
       <Route path="/resources" element={<Resources/>}/>
       <Route path="/resources/:id" element={<ResourcePage/>}/>
+      <Route path="/contactadmin" element={<ContactAdmin/>}/>
+
       </Route>
     </Routes>
     </UserContextProvider>

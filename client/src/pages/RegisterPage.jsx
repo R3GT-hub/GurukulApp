@@ -8,11 +8,13 @@ export default function RegisterPage() {
 
     async function register(ev){
         ev.preventDefault();
+        console.log("api call: ",username + password+ email);
         const response=await fetch('http://localhost:4000/register',{
             method:'POST',
             body:JSON.stringify({username,password,email}),
             headers:{'Content-Type':'application/json'},
         });
+        console.log("response: ", response);
         if(response.status!==200){
             alert('registration failed');
         }
@@ -25,9 +27,9 @@ export default function RegisterPage() {
   return (
     <form className="register" onSubmit={register} action="">
         <h1>Register</h1>
-            <input type="text" name="" id="" placeholder="username" value={username} onChange={(e)=>setUsername(e.target.value)}/>
-            <input type="text" name="" id="" placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
-            <input type="password" name="" id="" placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
+            <input type="text" name=""  placeholder="username" value={username} onChange={(e)=>setUsername(e.target.value)}/>
+            <input type="text" name=""  placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+            <input type="password" name=""  placeholder="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
             <button>Register</button>
 
         </form>
