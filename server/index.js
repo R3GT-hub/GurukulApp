@@ -149,4 +149,9 @@ app.get('/resources/:id',async (req,res)=>{
   res.json(postDoc);
 }
 )
-app.listen(4000);
+app.get('/',(req,res)=>{
+  res.send("hi yash");
+})
+app.listen(4000,()=>{
+  console.log(`Server Running on Port:4000 `)
+});

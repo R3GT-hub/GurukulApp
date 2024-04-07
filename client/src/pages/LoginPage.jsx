@@ -1,6 +1,7 @@
 import {useContext, useState} from "react";
 import {Navigate} from "react-router-dom";
 import {UserContext} from "../UserContext";
+import "./Form.css"
 
 export default function LoginPage() {
   const [username,setUsername] = useState('');
@@ -29,7 +30,8 @@ export default function LoginPage() {
     return <Navigate to={'/'} />
   }
   return (
-    <form className="login" onSubmit={login}>
+    <div className="container">
+    <form id="contact" className="login" onSubmit={login}>
       <h1>Login</h1>
       <input type="text"
              placeholder="username"
@@ -41,5 +43,6 @@ export default function LoginPage() {
              onChange={ev => setPassword(ev.target.value)}/>
       <button>Login</button>
     </form>
+    </div>
   );
 }

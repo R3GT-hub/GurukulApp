@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Navigate } from "react-router-dom";
+import "./Form.css"
 
 export default function CreatePost() {
   const [title, setTitle] = useState("");
@@ -68,7 +69,8 @@ export default function CreatePost() {
   }
 
   return (
-    <form onSubmit={createNewPost}>
+    <div className="container">
+    <form id="contact" onSubmit={createNewPost}>
       <input
         type="text"
         placeholder="Title"
@@ -91,5 +93,6 @@ export default function CreatePost() {
       <ReactQuill value={content} onChange={(newVal) => setContent(newVal)} />
       <button type="submit">Create Post</button>
     </form>
+    </div>
   );
 }

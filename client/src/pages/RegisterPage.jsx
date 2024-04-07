@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Navigate } from "react-router-dom";
+import "./Form.css"
 
 export default function RegisterPage() {
     const [username,setUsername]=useState("");
@@ -30,7 +31,8 @@ export default function RegisterPage() {
     }
 
   return (
-    <form className="register" onSubmit={register} action="">
+    <div className="container">
+    <form id="contact" className="register" onSubmit={register} action="">
         <h1>Register</h1>
             <input type="text" name=""  placeholder="username" value={username} onChange={(e)=>setUsername(e.target.value)}/>
             <input type="text" name=""  placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
@@ -38,5 +40,6 @@ export default function RegisterPage() {
             <button>Register</button>
 
         </form>
+        </div>
   )
 }
