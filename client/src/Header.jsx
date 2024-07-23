@@ -27,7 +27,9 @@ function Header() {
 
   return (
     <div className="navbar">
-      <div href="/" className="nav-logo">Gurukul</div>
+      <Link to="/" className="nav-logo"><div>
+      Gurukul
+        </div></Link>
       
         <div className="me-auto">
           <Link className="link" to="/">
@@ -36,7 +38,7 @@ function Header() {
           <Link className="link" to="/contactadmin"><div className="nav-title">Contact Admin</div></Link>
           {username ? (
             <>
-              <Link className="link" to="/">
+              <Link className="link" to="/opportunities">
                 <div className="nav-title">Jobs</div>
               </Link>
               <Link className="link" to="/resources">

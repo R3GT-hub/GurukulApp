@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Navigate } from "react-router-dom";
-import "./Form.css"
+import "./Form.css";
 
 export default function CreatePost() {
   const [title, setTitle] = useState("");
@@ -11,7 +11,7 @@ export default function CreatePost() {
   const [files, setFiles] = useState("");
   const [website, setWebsite] = useState("");
   const [redirect, setRedirect] = useState(false);
-  const filepathRef = useRef(""); // Using useRef instead of useState for filepath
+  const filepathRef = useRef("");
 
   async function uploadImage() {
     const data = new FormData();
@@ -30,7 +30,7 @@ export default function CreatePost() {
       const imageData = await response.json();
       console.log(imageData.url);
       const newUrl = imageData.url;
-      filepathRef.current = newUrl; // Update the filepath using useRef
+      filepathRef.current = newUrl;
       console.log("this is file path: ", filepathRef.current);
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -40,19 +40,17 @@ export default function CreatePost() {
   async function createNewPost(ev) {
     ev.preventDefault();
 
-    // Upload the image first
     await uploadImage();
 
-    // Use the uploaded image URL as cloudpath in the form data directly
     const data = new FormData();
     data.set("title", title);
     data.set("summary", summary);
     data.set("content", content);
     data.set("file", files[0]);
-    data.set("website",website);
-    data.set("cloudpath", filepathRef.current); // Use the updated filepath from useRef
+    data.set("website", website);
+    data.set("cloudpath", filepathRef.current);
 
-    console.log(filepathRef.current); // Log the updated filepath after it should have been updated
+    console.log(filepathRef.current);
 
     const response = await fetch("http://localhost:4000/post", {
       method: "POST",
@@ -69,30 +67,31 @@ export default function CreatePost() {
   }
 
   return (
-    <div className="container">
-    <form id="contact" onSubmit={createNewPost}>
-      <input
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Summary"
-        value={summary}
-        onChange={(e) => setSummary(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="website link"
-        value={website}
-        onChange={(e) => setWebsite(e.target.value)}
-      />
-      <input type="file" onChange={(ev) => setFiles(ev.target.files)} />
-      <ReactQuill value={content} onChange={(newVal) => setContent(newVal)} />
-      <button type="submit">Create Post</button>
-    </form>
+    <div className="form-container">
+      <form id="contact" onSubmit={createNewPost} className="form-card">
+        <h2>Create a New Post</h2>
+        <input
+          type="text"
+          placeholder="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Summary"
+          value={summary}
+          onChange={(e) => setSummary(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Website Link"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+        />
+        <input type="file" onChange={(ev) => setFiles(ev.target.files)} />
+        <ReactQuill value={content} onChange={(newVal) => setContent(newVal)} />
+        <button type="submit">Create Post</button>
+      </form>
     </div>
   );
 }

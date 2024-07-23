@@ -84,6 +84,8 @@
     margin: 0 0 5px;
     padding: 10px;
     font-size: 15px;
+    margin-top: 20px;
+
   }
   
   #contact button[type="submit"]:hover {

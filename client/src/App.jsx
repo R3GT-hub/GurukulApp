@@ -11,13 +11,15 @@ import CreateResources from "./pages/CreateResources";
 import Resources from "./pages/Resources"
 import ResourcePage from "./pages/ResourcePage"
 import ContactAdmin from "./pages/ContactAdmin";
+import HomePage from "./pages/HomePage";
 function App() {
   return (
     <UserContextProvider>
     <Routes>
       <Route path="/" element={<Layout/>}>
-      <Route index element={<IndexPage />} />
+      <Route index element={<HomePage />} />
       <Route path="/login" element={<LoginPage/>} />
+      <Route path="/opportunities" element={<IndexPage/>} />
       <Route path="/register" element={<RegisterPage/>} />
       <Route path="/create" element={<CreatePost/>}/>
       <Route path="/post/:id" element={<PostPage/>}/>

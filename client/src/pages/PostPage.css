@@ -1,0 +1,157 @@
+.post-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .image {
+    width: 80%; /* Adjust width to make the image smaller */
+    height: auto;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    border-radius: 8px;
+  }
+  
+  .image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    border-radius: 20px;
+
+  }
+  
+  .post-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+  }
+  
+  .post-title {
+    font-size: 2rem;
+    margin: 0 0 15px;
+    color: #333;
+  }
+  
+  .post-content a {
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    color: #007bff;
+    text-decoration: none;
+    border-bottom: 1px solid #007bff;
+    transition: color 0.3s, border-bottom-color 0.3s;
+  }
+  
+  .post-content a:hover {
+    color: #0056b3;
+    border-bottom-color: #0056b3;
+  }
+  
+  .post-content div {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+  }
+  
+  .back-link {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid #007bff;
+    transition: color 0.3s, border-bottom-color 0.3s;
+    text-decoration: none;
+  }
+  
+  .back-link:hover {
+    color: #0056b3;
+    text-decoration: none;
+
+    border-bottom-color: #0056b3;
+    background-color: white;
+  }
+  
+
+  .post-page {
+    padding: 20px;
+  }
+  
+  .image img {
+    width: 100%;
+    height: auto;
+    max-width: 800px; /* Adjust based on your design */
+    margin: 0 auto;
+    display: block;
+  }
+  
+  .post-content {
+    margin: 20px 0;
+  }
+  
+  .post-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .visit-website {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #0073e6;
+    text-decoration: none;
+  }
+  
+  .visit-website:hover {
+    text-decoration: underline;
+  }
+  
+  /* .back-link {
+    display: block;
+    margin-top: 20px;
+    color: #0073e6;
+    text-decoration: none;
+  } */
+  
+  /* .back-link:hover {
+    text-decoration: underline;
+  } */
+  
+  .post-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+  }
+  
+  .post-author-footer {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .social-icons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .social-icon {
+    color: #333;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+  }
+  
+  .social-icon:hover {
+    color: #0073e6; /* Change color on hover */
+  }
+  

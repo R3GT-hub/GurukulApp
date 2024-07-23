@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Form.css"
+import "./ContactAdmin.css";
 
 export default function ContactAdmin() {
   const [name, setName] = useState("");
@@ -15,9 +15,9 @@ export default function ContactAdmin() {
           <input
             placeholder="Your name"
             type="text"
-            tabindex="1"
+            tabIndex="1"
             required
-            autofocus
+            autoFocus
             id="name"
             name="name"
             value={name}
@@ -29,12 +29,12 @@ export default function ContactAdmin() {
           <input
             placeholder="Your email address"
             type="email"
-            tabindex="2"
+            tabIndex="2"
             id="email"
             value={email}
             name="email"
             onChange={(e) => setEmail(e.target.value)}
-            autofocus
+            autoFocus
             required
           />
         </fieldset>
@@ -42,13 +42,12 @@ export default function ContactAdmin() {
           <label htmlFor="message">Message:</label>
           <textarea
             placeholder="Type your message here...."
-            tabindex="5"
+            tabIndex="3"
             id="message"
             value={message}
             name="message"
             onChange={(e) => setMessage(e.target.value)}
             rows={10}
-            cols={100}
             required
           ></textarea>
         </fieldset>

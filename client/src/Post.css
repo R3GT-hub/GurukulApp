@@ -1,0 +1,90 @@
+.post-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .post {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin-bottom: 20px;
+  }
+  
+  .post:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .post-image {
+    width: 100%;
+    height: 200px; /* Adjust height as needed */
+    overflow: hidden; /* Ensure any overflow is hidden */
+  }
+  
+  .post-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the container while maintaining aspect ratio */
+    transition: opacity 0.3s;
+  }
+  
+  .post-image:hover .post-img {
+    opacity: 0.8;
+  }
+  
+  .post-details {
+    padding: 20px;
+  }
+  
+  .post-title {
+    font-size: 1.5rem;
+    margin: 0 0 10px;
+    color: #333;
+  }
+  
+  .post-info {
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .post-author {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .post-author:hover {
+    color: #0056b3;
+  }
+  
+  .post-time {
+    margin-left: 10px;
+  }
+  
+  .post-summary {
+    font-size: 1rem;
+    color: #444;
+  }
+  .delete-button {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.delete-button:hover {
+    background-color: #c0392b;
+}
+
