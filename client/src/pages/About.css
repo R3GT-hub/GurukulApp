@@ -8,6 +8,7 @@
     font-family: 'Roboto', sans-serif;
     margin-top: 40px;
     border-radius: 10px;
+    padding: 20px;
   }
   
   .about-content {
@@ -61,5 +62,35 @@
   
   .about-details strong {
     color: #007bff;
+  }
+ 
+  .socials-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .social-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .social-item a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .social-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    transition: filter 0.3s ease;
+  }
+  
+  .social-item a:hover .social-icon {
+    filter: invert(45%) sepia(100%) saturate(1000%) hue-rotate(190deg);
   }
   
