@@ -252,3 +252,14 @@
   .register button:hover {
     background-color: #2a5298;
   }
+
+  .form-container{
+    margin-top: 40px;
+  }
+ .form-card input{
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+  .form-card .createpostbutton{
+    margin-top: 20px;
+  }

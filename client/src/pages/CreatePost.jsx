@@ -69,7 +69,7 @@ export default function CreatePost() {
   return (
     <div className="form-container">
       <form id="contact" onSubmit={createNewPost} className="form-card">
-        <h2>Create a New Post</h2>
+        <h2>Post a new Opportunity</h2>
         <input
           type="text"
           placeholder="Title"
@@ -90,7 +90,7 @@ export default function CreatePost() {
         />
         <input type="file" onChange={(ev) => setFiles(ev.target.files)} />
         <ReactQuill value={content} onChange={(newVal) => setContent(newVal)} />
-        <button type="submit">Create Post</button>
+        <button className="createpostbutton" type="submit">Create Post</button>
       </form>
     </div>
   );

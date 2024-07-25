@@ -14,7 +14,14 @@ export default function PostPage() {
       .catch(error => console.error('Error fetching post:', error));
   }, [id]);
 
-  if (!postInfo) return 'Job expired';
+  if (!postInfo) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className='post-page'>

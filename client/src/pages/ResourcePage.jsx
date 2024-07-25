@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import './PostPage.css'; // Make sure to import the CSS file for styling
 
 export default function PostPage() {
   const { id } = useParams();
@@ -12,8 +13,15 @@ export default function PostPage() {
       .catch(error => console.error('Error fetching post:', error));
   }, [id]);
 
-  if (!postInfo) return 'Job expired';
-console.log(postInfo);
+  if (!postInfo) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
   return (
     <div className='post-page'>
       <div className='image'>
