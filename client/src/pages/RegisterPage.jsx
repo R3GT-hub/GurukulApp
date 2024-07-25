@@ -20,48 +20,48 @@ export default function RegisterPage() {
     if (response.status !== 200) {
       alert("registration failed");
     } else {
-      alert("registration successfull");
+      alert("registration successful");
       setRedirect(true);
     }
   }
+
   if (redirect) {
     return <Navigate to={"/login"} />;
   }
 
   return (
-    <div className="container">
-      <form id="contact" className="register" onSubmit={register} action="">
-        <h1>Register</h1>
-        <input
-          type="text"
-          name=""
-          placeholder="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="text"
-          name=""
-          placeholder="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          name=""
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button
-          name="submit"
-          type="submit"
-          id="contact-submit"
-          data-submit="...Sending"
-        >
-          Register
-        </button>
-      </form>
+    <div className="register-container">
+      <div className="register-form-container">
+        <form id="contact" className="register" onSubmit={register}>
+          <h1>Register</h1>
+          <input
+            type="text"
+            placeholder="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button
+            name="submit"
+            type="submit"
+            id="contact-submit"
+            data-submit="...Sending"
+          >
+            Register
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './HomePage.css'; // Ensure you create this CSS file for styling
 import CarouselComponent from './CarouselComponent'; // Adjust the path as necessary
+import Footer from '../Footer';
 
 export default function HomePage() {
   return (
@@ -25,9 +26,10 @@ export default function HomePage() {
         <p>Learn more about our mission and the team behind this project.</p>
         <Link to='/about' className='cta-button'>Learn More</Link>
       </section>
-      <footer className='homepage-footer'>
+      {/* <footer className='homepage-footer'>
         <p>&copy; {new Date().getFullYear()} Gurukul. All rights reserved.</p>
-      </footer>
+      </footer> */}
+      {/* <Footer/> */}
     </div>
   );
 }

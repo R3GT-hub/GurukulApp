@@ -19,6 +19,7 @@ const uploadMiddleware = multer({ dest: "uploads/" }); // Check the destination 
 const secret = "saranshsdemicrosoft";
 mongoose.connect(
   "mongodb+srv://saransh2002sharma:KnX9HiMxS8qomdCM@cluster0.tljzb6d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,

@@ -1,4 +1,4 @@
-.container {
+/* .container {
     max-width: 450px;
     width: 100%;
     margin: 0  auto;
@@ -123,4 +123,132 @@
   
   :-ms-input-placeholder {
     color: #888;
+  } */
+
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-top: 40px;
+    border-radius: 10px;
+    /* height: 100vh; */
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+  }
+  
+  .login-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .login-image img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .login-form-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .login h1 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 2rem;
+  }
+  
+  .login input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .login button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1e3c72;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login button:hover {
+    background-color: #2a5298;
+  }
+  
+  .register-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    border-radius: 10px;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+  }
+  
+  .register-form-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .register {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .register h1 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 2rem;
+  }
+  
+  .register input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .register button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #1e3c72;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .register button:hover {
+    background-color: #2a5298;
   }

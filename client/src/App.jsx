@@ -12,6 +12,7 @@ import Resources from "./pages/Resources"
 import ResourcePage from "./pages/ResourcePage"
 import ContactAdmin from "./pages/ContactAdmin";
 import HomePage from "./pages/HomePage";
+import About from "./pages/About";
 function App() {
   return (
     <UserContextProvider>
@@ -19,6 +20,7 @@ function App() {
       <Route path="/" element={<Layout/>}>
       <Route index element={<HomePage />} />
       <Route path="/login" element={<LoginPage/>} />
+      <Route path="/about" element={<About/>} />
       <Route path="/opportunities" element={<IndexPage/>} />
       <Route path="/register" element={<RegisterPage/>} />
       <Route path="/create" element={<CreatePost/>}/>
