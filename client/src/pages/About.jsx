@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './About.css';
 
 const About = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="about-container">
       <div className="about-content">
@@ -19,7 +22,7 @@ const About = () => {
           <p><strong>Achievements:</strong></p>
           <ul>
             <li>National Finalist (Top-12) GE Healthcare Precision Care Challenge 2024</li>
-            <li>Achieved in non-CS category and overall in Coderush Coding Competition 2023 by Algo University</li>
+            <li>Achieved 1'st rank in non-CS category and overall 4'th in Coderush Coding Competition 2023 by Algo University</li>
             <li>National Semifinalist in Larsen and Turbo Createch Hackathon among 13k+ teams</li>
             <li>National Semifinalist in Nation with Namo among 31k+ teams</li>
           </ul>
