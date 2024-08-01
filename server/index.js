@@ -3,41 +3,62 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./models/User");
 const Post = require("./models/Post");
-const Resources =require("./models/Resources");
-const app = express();
+const Resources = require("./models/Resources");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const multer = require("multer");
 const fs = require("fs");
 
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+const app = express();
+
+app.use(cors({ credentials: true, origin: "http://localhost:5174" }));
 app.use(express.json());
 app.use(cookieParser());
 
-const uploadMiddleware = multer({ dest: "uploads/" }); // Check the destination folder path
+const uploadMiddleware = multer({ dest: "uploads/" });
 const secret = "saranshsdemicrosoft";
-mongoose.connect(
-  "mongodb+srv://saransh2002sharma:KnX9HiMxS8qomdCM@cluster0.tljzb6d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
 
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+const connect = async () => {
+  await mongoose.connect(
+    "mongodb+srv://saransh2002sharma:KnX9HiMxS8qomdCM@cluster0.tljzb6d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  );
+  console.log("Mongodb connected");
+};
+
+// Middleware to verify token
+const verifyToken = (req, res, next) => {
+  const { token } = req.cookies;
+  if (!token) {
+    return res.status(401).json({ error: "Token is missing" });
   }
-);
+  jwt.verify(token, secret, (err, info) => {
+    if (err) {
+      return res.status(403).json({ error: "Token is invalid" });
+    }
+    req.user = info;
+    next();
+  });
+};
 
 app.post("/register", async (req, res) => {
-  const { username, password,email } = req.body;
-  console.log("req.body: ", username + " " + email+" "+password);
+  const { username, password, email } = req.body;
+  console.log("req.body: ", username + " " + email + " " + password);
   try {
-
-    const hashPass =  bcrypt.hashSync(password, 10);
+    let isAdmin = false;
+    if (username === "yashpredator" || username === "saransh") isAdmin = true;
+    const hashPass = bcrypt.hashSync(password, 10);
     const userDoc = await User.create({
       username,
       email,
       password: hashPass,
+      isAdmin: isAdmin,
     });
-    console.log("userDoc: ",userDoc);
+    console.log("userDoc: ", userDoc);
     res.json(userDoc);
   } catch (e) {
     console.log(e);
@@ -48,9 +69,11 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const userDoc = await User.findOne({ username });
+  if (!userDoc) {
+    return res.status(400).json("wrong credentials");
+  }
   const passOk = bcrypt.compareSync(password, userDoc.password);
   if (passOk) {
-    // logged in
     jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
       if (err) throw err;
       res.cookie("token", token).json({
@@ -63,96 +86,106 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
+app.post("/post", uploadMiddleware.single("file"), verifyToken, async (req, res) => {
   const { originalname, path } = req.file;
   const parts = originalname.split(".");
   const ext = parts[parts.length - 1];
   const newPath = path + "." + ext;
   fs.renameSync(path, newPath);
 
-  const { token } = req.cookies;
-  jwt.verify(token, secret, {}, async (err, info) => {
-    if (err) throw err;
-    const { title, summary, content,cloudpath ,website} = req.body;
-    const postDoc = await Post.create({
-      title,
-      summary,
-      cloudpath,
-      content,
-      cover: newPath,
-      website:website,
-      author: info.id,
-    });
-
-    res.json(postDoc);
+  const { title, summary, content, cloudpath, website } = req.body;
+  const postDoc = await Post.create({
+    title,
+    summary,
+    cloudpath,
+    content,
+    cover: newPath,
+    website: website,
+    author: req.user.id,
   });
+
+  res.json(postDoc);
 });
 
-app.post("/resources", uploadMiddleware.single("file"), async (req, res) => {
+app.post("/resources", uploadMiddleware.single("file"), verifyToken, async (req, res) => {
   const { originalname, path } = req.file;
   const parts = originalname.split(".");
   const ext = parts[parts.length - 1];
   const newPath = path + "." + ext;
   fs.renameSync(path, newPath);
 
-  const { token } = req.cookies;
-  jwt.verify(token, secret, {}, async (err, info) => {
-    if (err) throw err;
-    const { title, summary, content,cloudpath ,website} = req.body;
-    const postDoc = await Resources.create({
-      title,
-      summary,
-      cloudpath,
-      content,
-      cover: newPath,
-      website:website,
-      author: info.id,
-    });
-
-    res.json(postDoc);
+  const { title, summary, content, cloudpath, website } = req.body;
+  const postDoc = await Resources.create({
+    title,
+    summary,
+    cloudpath,
+    content,
+    cover: newPath,
+    website: website,
+    author: req.user.id,
   });
+
+  res.json(postDoc);
 });
 
-
-app.get("/profile", (req, res) => {
-  const { token } = req.cookies;
-  jwt.verify(token, secret, {}, (err, info) => {
-    if (err) throw err;
-    res.json(info);
-  });
+app.get("/profile", verifyToken, async (req, res) => {
+  const userDoc = await User.findById(req.user.id);
+  res.json({ username: userDoc.username, isAdmin: userDoc.isAdmin });
 });
 
 app.post("/logout", (req, res) => {
-  res.cookie("token", "").json("ok");
-  redirect('/');
+  res.clearCookie("token", {
+    sameSite: "none",
+    secure: true,
+  });
+  res.status(200).json({ message: "Logged out successfully" });
 });
 
 app.get("/post", async (req, res) => {
-  res.json(await Post.find().populate('author',['username']).sort({createdAt:-1}).limit(20));
+  res.json(
+    await Post.find()
+      .populate("author", ["username"])
+      .sort({ createdAt: -1 })
+      .limit(20)
+  );
 });
 
-
-app.get('/post/:id',async (req,res)=>{
-  const {id}=req.params;
-  const postDoc=await Post.findById(id).populate('author',['username']);
+app.get("/post/:id", async (req, res) => {
+  const { id } = req.params;
+  const postDoc = await Post.findById(id).populate("author", ["username"]);
   res.json(postDoc);
-}
-)
+});
 
 app.get("/resources", async (req, res) => {
-  res.json(await Resources.find().populate('author',['username']).sort({createdAt:-1}).limit(20));
+  res.json(
+    await Resources.find()
+      .populate("author", ["username"])
+      .sort({ createdAt: -1 })
+      .limit(20)
+  );
 });
 
-
-app.get('/resources/:id',async (req,res)=>{
-  const {id}=req.params;
-  const postDoc=await Resources.findById(id).populate('author',['username']);
+app.get("/resources/:id", async (req, res) => {
+  const { id } = req.params;
+  const postDoc = await Resources.findById(id).populate("author", ["username"]);
   res.json(postDoc);
-}
-)
-app.get('/',(req,res)=>{
+});
+
+app.delete("/post/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Post.findByIdAndDelete(id);
+    res.status(200).json("Post has been deleted!");
+  } catch (err) {
+    res.status(400).json("Cannot delete the post");
+  }
+});
+
+app.get("/", (req, res) => {
   res.send("hi yash");
-})
-app.listen(4000,()=>{
-  console.log(`Server Running on Port:4000 `)
+});
+
+app.listen(4000, () => {
+  connect();
+  console.log(`Server Running on Port:4000`);
 });
