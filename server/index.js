@@ -12,12 +12,12 @@ const fs = require("fs");
 
 const app = express();
 
-app.use(cors({ credentials: true, origin: "http://localhost:5174" }));
+app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(express.json());
 app.use(cookieParser());
 
 const uploadMiddleware = multer({ dest: "uploads/" });
-const secret = "saranshsdemicrosoft";
+const secret = "saranshsdesaranshsde";
 
 const connect = async () => {
   await mongoose.connect(
@@ -141,7 +141,7 @@ app.post("/logout", (req, res) => {
   res.status(200).json({ message: "Logged out successfully" });
 });
 
-app.get("/post", async (req, res) => {
+app.get("/post",verifyToken, async (req, res) => {
   res.json(
     await Post.find()
       .populate("author", ["username"])
@@ -156,7 +156,7 @@ app.get("/post/:id", async (req, res) => {
   res.json(postDoc);
 });
 
-app.get("/resources", async (req, res) => {
+app.get("/resources",verifyToken, async (req, res) => {
   res.json(
     await Resources.find()
       .populate("author", ["username"])

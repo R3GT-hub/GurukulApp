@@ -1,10 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { UserContext } from "./UserContext";
 import { Link } from "react-router-dom";
 import "./Header.css";
+
 function Header() {
   const { setUserInfo, userInfo } = useContext(UserContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:4000/profile", {
@@ -23,53 +25,120 @@ function Header() {
     });
     setUserInfo(null);
   }
+
   const username = userInfo?.username;
 
   return (
     <div className="navbar">
-      <Link to="/" className="nav-logo"><div>
-      Gurukul
-        </div></Link>
-      
-        <div className="me-auto">
-          <Link className="link" to="/">
+      <Link to="/" className="nav-logo">
+        Gurukul
+      </Link>
+      <button
+        className="menu-toggle"
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+      >
+        ☰
+      </button>
+      <div className={`menu-overlay ${isMenuOpen ? "open" : ""}`}>
+        <button className="close-btn" onClick={() => setIsMenuOpen(false)}>
+          ×
+        </button>
+        <div className="menu-options">
+          <Link className="link" to="/" onClick={() => setIsMenuOpen(false)}>
             <div className="nav-title">Home</div>
           </Link>
-          <Link className="link" to="/contactadmin"><div className="nav-title">Contact Admin</div></Link>
+          <Link className="link" to="/contactadmin" onClick={() => setIsMenuOpen(false)}>
+            <div className="nav-title">Contact Admin</div>
+          </Link>
           {username ? (
             <>
-              <Link className="link" to="/opportunities">
+              <Link className="link" to="/opportunities" onClick={() => setIsMenuOpen(false)}>
                 <div className="nav-title">Jobs</div>
               </Link>
-              <Link className="link" to="/resources">
+              <Link className="link" to="/resources" onClick={() => setIsMenuOpen(false)}>
                 <div className="nav-title">Resources</div>
               </Link>
               {username === "saransh" ||
               username === "mohit" ||
               username === "pratyush" ? (
                 <>
-                  <Link className="link" to="/createresource">
+                  <Link className="link" to="/createresource" onClick={() => setIsMenuOpen(false)}>
                     <div className="nav-title">Add Resources</div>
                   </Link>
-                  <Link className="link" to="/create">
+                  <Link className="link" to="/create" onClick={() => setIsMenuOpen(false)}>
                     <div className="nav-title">Add Jobs</div>
                   </Link>
                 </>
               ) : null}
-              <NavDropdown title={username} className="nav-title" id="basic-nav-dropdown">
+              <NavDropdown
+                title={username}
+                className="nav-title"
+                id="basic-nav-dropdown"
+              >
                 <NavDropdown.Item href="/" onClick={logout}>
-                <div className="logout">Logout</div>
+                  <div className="logout">Logout</div>
                 </NavDropdown.Item>
               </NavDropdown>
             </>
           ) : (
             <>
-              <Link className="link" to="/login"><div className="nav-title">Login</div></Link>
-              <Link className="link" to="/register"><div className="nav-title">Register</div></Link>
+              <Link className="link" to="/login" onClick={() => setIsMenuOpen(false)}>
+                <div className="nav-title">Login</div>
+              </Link>
+              <Link className="link" to="/register" onClick={() => setIsMenuOpen(false)}>
+                <div className="nav-title">Register</div>
+              </Link>
             </>
           )}
         </div>
-     </div>
+      </div>
+      <div className="me-auto large-screen-menu">
+        <Link className="link" to="/">
+          <div className="nav-title">Home</div>
+        </Link>
+        <Link className="link" to="/contactadmin">
+          <div className="nav-title">Contact Admin</div>
+        </Link>
+        {username ? (
+          <>
+            <Link className="link" to="/opportunities">
+              <div className="nav-title">Jobs</div>
+            </Link>
+            <Link className="link" to="/resources">
+              <div className="nav-title">Resources</div>
+            </Link>
+            {username.isAdmin?(
+              <>
+                <Link className="link" to="/createresource">
+                  <div className="nav-title">Add Resources</div>
+                </Link>
+                <Link className="link" to="/create">
+                  <div className="nav-title">Add Jobs</div>
+                </Link>
+              </>
+            ) : null}
+            <NavDropdown
+              title={username}
+              className="nav-title"
+              id="basic-nav-dropdown"
+            >
+              <NavDropdown.Item href="/" onClick={logout}>
+                <div className="logout">Logout</div>
+              </NavDropdown.Item>
+            </NavDropdown>
+          </>
+        ) : (
+          <>
+            <Link className="link" to="/login">
+              <div className="nav-title">Login</div>
+            </Link>
+            <Link className="link" to="/register">
+              <div className="nav-title">Register</div>
+            </Link>
+          </>
+        )}
+      </div>
+    </div>
   );
 }
 

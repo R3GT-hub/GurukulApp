@@ -1,13 +1,13 @@
 import { format } from "date-fns";
 import { Link, useNavigate } from "react-router-dom";
 import "./Post.css";
-import axios from "axios"
+import axios from "axios";
+
 const handleDelete = async (id, navigate) => {
     try {
         const response = await axios.delete(`http://localhost:4000/post/${id}`, { withCredentials: true });
         if (response.status === 200) {
-            // navigate('/');
-            window.location.reload(); 
+            window.location.reload();
         }
     } catch (error) {
         console.error("There was an error deleting the post!", error);
@@ -15,7 +15,7 @@ const handleDelete = async (id, navigate) => {
 };
 
 export default function Post({ _id, title, summary, content, cover, createdAt, author, cloudpath, isAdmin }) {
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     return (
         <Link to={`/post/${_id}`} className="post-link">
             <div className="post">

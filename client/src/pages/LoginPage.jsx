@@ -18,6 +18,7 @@ export default function LoginPage() {
       credentials: "include",
     });
     if (response.ok) {
+      // localStorage.setItem("currentUser",JSON.stringify(res));
       response.json().then((userInfo) => {
         setUserInfo(userInfo);
         setRedirect(true);

@@ -14,7 +14,7 @@ export default function HomePage() {
           <p>Your one-stop solution for managing and discovering amazing posts and resources.</p>
           <div className='button-container'>
             <Link to='/resources' className='cta-button'>Explore Resources</Link>
-            <Link to='/jobs' className='cta-button'>Explore Jobs/Internships</Link>
+            <Link to='/opportunities' className='cta-button'>Explore Jobs/Internships</Link>
           </div>
         </div>
       </header>

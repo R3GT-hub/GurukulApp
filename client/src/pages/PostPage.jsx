@@ -45,7 +45,7 @@ export default function PostPage() {
           </a>
         </div>
       </div>
-      <Link to="/" className="back-link">Back to Home</Link>
+      <Link to="/opportunities" className="back-link">Back to Home</Link>
 
       
     </div>
