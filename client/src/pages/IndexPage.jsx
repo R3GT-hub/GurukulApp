@@ -10,7 +10,7 @@ export default function IndexPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetch('http://localhost:4000/profile', {
+    fetch('https://gurukulapp.onrender.com/profile', {
       credentials: 'include',   
     })
       .then(response => {
@@ -22,7 +22,7 @@ export default function IndexPage() {
       .then(userInfo => {
         setUserInfo(userInfo);
         if (userInfo) {
-          fetch('http://localhost:4000/post')
+          fetch('https://gurukulapp.onrender.com/post')
             .then(response => response.json())
             .then(posts => setPosts(posts))
             .catch(error => console.error('Error fetching posts:', error))

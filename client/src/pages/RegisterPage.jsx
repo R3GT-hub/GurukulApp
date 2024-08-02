@@ -11,7 +11,7 @@ export default function RegisterPage() {
   async function register(ev) {
     ev.preventDefault();
     console.log("api call: ", username + password + email);
-    const response = await fetch("http://localhost:4000/register", {
+    const response = await fetch("https://gurukulapp.onrender.com/register", {
       method: "POST",
       body: JSON.stringify({ username, password, email }),
       headers: { "Content-Type": "application/json" },

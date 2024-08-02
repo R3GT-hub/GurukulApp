@@ -5,7 +5,7 @@ import axios from "axios";
 
 const handleDelete = async (id, navigate) => {
     try {
-        const response = await axios.delete(`http://localhost:4000/post/${id}`, { withCredentials: true });
+        const response = await axios.delete(`https://gurukulapp.onrender.com/post/${id}`, { withCredentials: true });
         if (response.status === 200) {
             window.location.reload();
         }

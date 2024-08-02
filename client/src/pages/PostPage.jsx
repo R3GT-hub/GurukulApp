@@ -9,7 +9,7 @@ export default function PostPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetch(`http://localhost:4000/post/${id}`)
+    fetch(`https://gurukulapp.onrender.com/post/${id}`)
       .then(response => response.json())
       .then(postInfo => setPostInfo(postInfo))
       .catch(error => console.error('Error fetching post:', error));
