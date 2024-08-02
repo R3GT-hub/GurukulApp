@@ -7,6 +7,7 @@ export default function PostPage() {
   const [postInfo, setPostInfo] = useState(null);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetch(`http://localhost:4000/resources/${id}`)
       .then(response => response.json())
       .then(postInfo => setPostInfo(postInfo))
@@ -34,7 +35,7 @@ export default function PostPage() {
         <div dangerouslySetInnerHTML={{ __html: postInfo.content }} />
       </div>
 
-      <Link to="/" className="back-link">Back to Home</Link>
+      <Link to="/opportunities" className="back-link">Back to Home</Link>
     </div>
   );
 }

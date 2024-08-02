@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../Post';
-import './IndexPage.css'; // Make sure to import the CSS file for styling
+import 'animate.css';
+import './IndexPage.css'; 
 
 export default function IndexPage() {
   const [posts, setPosts] = useState([]);
@@ -8,6 +9,7 @@ export default function IndexPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetch('http://localhost:4000/profile', {
       credentials: 'include',   
     })
@@ -38,20 +40,22 @@ export default function IndexPage() {
   return (
     <div className='index-page'>
       {loading ? (
-        <div className="loading-container">
+        <div className="loading-container animate__animated animate__fadeIn">
           <div className="loading-spinner"></div>
           <p>Fetching Opportunities...</p>
         </div>
       ) : userInfo ? (
         posts.length > 0 ? (
           posts.map(post => (
-            <Post {...post} key={post._id} isAdmin={userInfo.isAdmin} />
+            <div className="animate__animated animate__fadeInUp" key={post._id}>
+              <Post {...post} isAdmin={userInfo.isAdmin} />
+            </div>
           ))
         ) : (
-          <p>No posts available.</p>
+          <p className="animate__animated animate__fadeIn">No posts available.</p>
         )
       ) : (
-        <p>Please sign in to see the posts.</p>
+        <p className="animate__animated animate__fadeIn">Please sign in to see the posts.</p>
       )}
     </div>
   );

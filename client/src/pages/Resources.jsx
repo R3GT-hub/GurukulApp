@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Resource from '../Resource';
 import './IndexPage.css'; // Make sure to import the CSS file for styling
+import 'animate.css';
 
 export default function IndexPage() {
   const [posts, setPosts] = useState([]);
@@ -8,6 +9,7 @@ export default function IndexPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetch('http://localhost:4000/profile', {
       credentials: 'include',
     })
@@ -19,7 +21,6 @@ export default function IndexPage() {
       })
       .then(userInfo => {
         setUserInfo(userInfo);
-        console.log("userinfo", userInfo);
         if (userInfo) {
           fetch('http://localhost:4000/resources')
             .then(response => response.json())
@@ -37,22 +38,24 @@ export default function IndexPage() {
   }, []);
 
   return (
-    <div className='index-page'>
+    <div className='index-page animate__animated animate__fadeIn'>
       {loading ? (
-        <div className="loading-container">
+        <div className="loading-container animate__animated animate__fadeIn">
           <div className="loading-spinner"></div>
           <p>Fetching Resources...</p>
         </div>
       ) : userInfo ? (
         posts.length > 0 ? (
           posts.map(post => (
-            <Resource {...post} key={post._id} />
+            <div className="animate__animated animate__fadeInUp" key={post._id}>
+              <Resource {...post} />
+            </div>
           ))
         ) : (
-          <p>No resources available.</p>
+          <p className="animate__animated animate__fadeIn">No resources available.</p>
         )
       ) : (
-        <p>Please sign in to see the resources.</p>
+        <p className="animate__animated animate__fadeIn">Please sign in to see the resources.</p>
       )}
     </div>
   );

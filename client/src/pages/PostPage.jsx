@@ -8,6 +8,7 @@ export default function PostPage() {
   const [postInfo, setPostInfo] = useState(null);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetch(`http://localhost:4000/post/${id}`)
       .then(response => response.json())
       .then(postInfo => setPostInfo(postInfo))

@@ -1,11 +1,19 @@
 // src/pages/HomePage.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './HomePage.css'; // Ensure you create this CSS file for styling
 import CarouselComponent from './CarouselComponent'; // Adjust the path as necessary
 import Footer from '../Footer';
 
+
+
+
 export default function HomePage() {
+
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+  })
+
   return (
     <div className='homepage'>
       <header className='hero-section'>

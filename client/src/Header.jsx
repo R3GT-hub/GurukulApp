@@ -7,6 +7,7 @@ import "./Header.css";
 function Header() {
   const { setUserInfo, userInfo } = useContext(UserContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:4000/profile", {
@@ -14,6 +15,7 @@ function Header() {
     }).then((response) => {
       response.json().then((userInfo) => {
         setUserInfo(userInfo);
+        setIsAdmin(userInfo.isAdmin);
       });
     });
   }, []);
@@ -24,6 +26,7 @@ function Header() {
       method: "POST",
     });
     setUserInfo(null);
+    setIsAdmin(false);
   }
 
   const username = userInfo?.username;
@@ -58,9 +61,7 @@ function Header() {
               <Link className="link" to="/resources" onClick={() => setIsMenuOpen(false)}>
                 <div className="nav-title">Resources</div>
               </Link>
-              {username === "saransh" ||
-              username === "mohit" ||
-              username === "pratyush" ? (
+              {isAdmin && (
                 <>
                   <Link className="link" to="/createresource" onClick={() => setIsMenuOpen(false)}>
                     <div className="nav-title">Add Resources</div>
@@ -69,7 +70,7 @@ function Header() {
                     <div className="nav-title">Add Jobs</div>
                   </Link>
                 </>
-              ) : null}
+              )}
               <NavDropdown
                 title={username}
                 className="nav-title"
@@ -107,7 +108,7 @@ function Header() {
             <Link className="link" to="/resources">
               <div className="nav-title">Resources</div>
             </Link>
-            {username.isAdmin?(
+            {isAdmin && (
               <>
                 <Link className="link" to="/createresource">
                   <div className="nav-title">Add Resources</div>
@@ -116,7 +117,7 @@ function Header() {
                   <div className="nav-title">Add Jobs</div>
                 </Link>
               </>
-            ) : null}
+            )}
             <NavDropdown
               title={username}
               className="nav-title"
