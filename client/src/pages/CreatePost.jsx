@@ -52,7 +52,7 @@ export default function CreatePost() {
 
     console.log(filepathRef.current);
 
-    const response = await fetch("https://gurukulapp.onrender.com/post", {
+    const response = await fetch("https://gurukul-server.onrender.com/post", {
       method: "POST",
       body: data,
       credentials: "include",

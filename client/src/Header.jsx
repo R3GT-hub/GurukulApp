@@ -10,7 +10,7 @@ function Header() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    fetch("https://gurukulapp.onrender.com/profile", {
+    fetch("https://gurukul-server.onrender.com/profile", {
       credentials: "include",
     }).then((response) => {
       response.json().then((userInfo) => {
@@ -21,7 +21,7 @@ function Header() {
   }, []);
 
   function logout() {
-    fetch("https://gurukulapp.onrender.com/logout", {
+    fetch("https://gurukul-server.onrender.com/logout", {
       credentials: "include",
       method: "POST",
     });
