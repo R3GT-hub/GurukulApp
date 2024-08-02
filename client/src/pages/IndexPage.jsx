@@ -6,33 +6,33 @@ export default function IndexPage() {
   const [posts, setPosts] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [cookiealive,setcookiealive]=useState(false);
+
   useEffect(() => {
-    const valid=fetch('http://localhost:4000/profile', {
+    fetch('http://localhost:4000/profile', {
       credentials: 'include',   
     })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Not authenticated');
+        }
+        return response.json();
+      })
       .then(userInfo => {
         setUserInfo(userInfo);
         if (userInfo) {
-          console.log(69);
           fetch('http://localhost:4000/post')
             .then(response => response.json())
             .then(posts => setPosts(posts))
             .catch(error => console.error('Error fetching posts:', error))
             .finally(() => setLoading(false));
-            
         } else {
-          
           setLoading(false);
         }
-        setcookiealive(true);
       })
       .catch(error => {
         console.error('Error fetching user info:', error);
         setLoading(false);
       });
-      console.log(cookiealive);
   }, []);
 
   return (
@@ -48,7 +48,7 @@ export default function IndexPage() {
             <Post {...post} key={post._id} isAdmin={userInfo.isAdmin} />
           ))
         ) : (
-          <p>Please sign in to see the posts.</p>
+          <p>No posts available.</p>
         )
       ) : (
         <p>Please sign in to see the posts.</p>

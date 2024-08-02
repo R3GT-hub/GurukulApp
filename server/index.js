@@ -129,10 +129,12 @@ app.post("/resources", uploadMiddleware.single("file"), verifyToken, async (req,
 });
 
 app.get("/profile", verifyToken, async (req, res) => {
+  if (!req.user) {
+    return res.status(401).json({ error: "Not authenticated" });
+  }
   const userDoc = await User.findById(req.user.id);
   res.json({ username: userDoc.username, isAdmin: userDoc.isAdmin });
 });
-
 app.post("/logout", (req, res) => {
   res.clearCookie("token", {
     sameSite: "none",
@@ -141,7 +143,7 @@ app.post("/logout", (req, res) => {
   res.status(200).json({ message: "Logged out successfully" });
 });
 
-app.get("/post",verifyToken, async (req, res) => {
+app.get("/post", async (req, res) => {
   res.json(
     await Post.find()
       .populate("author", ["username"])
@@ -156,7 +158,7 @@ app.get("/post/:id", async (req, res) => {
   res.json(postDoc);
 });
 
-app.get("/resources",verifyToken, async (req, res) => {
+app.get("/resources", async (req, res) => {
   res.json(
     await Resources.find()
       .populate("author", ["username"])

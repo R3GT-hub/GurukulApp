@@ -11,9 +11,15 @@ export default function IndexPage() {
     fetch('http://localhost:4000/profile', {
       credentials: 'include',
     })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Not authenticated');
+        }
+        return response.json();
+      })
       .then(userInfo => {
         setUserInfo(userInfo);
+        console.log("userinfo", userInfo);
         if (userInfo) {
           fetch('http://localhost:4000/resources')
             .then(response => response.json())
@@ -42,9 +48,11 @@ export default function IndexPage() {
           posts.map(post => (
             <Resource {...post} key={post._id} />
           ))
-        ) :  <p>Please sign in to see the posts.</p>
+        ) : (
+          <p>No resources available.</p>
+        )
       ) : (
-        <p>Please sign in to see the posts.</p>
+        <p>Please sign in to see the resources.</p>
       )}
     </div>
   );
