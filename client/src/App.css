@@ -9,7 +9,14 @@ main{
     max-width: 100%;
     margin: 0 auto;
 }
+@media (max-width: 768px) {
+  .screen-container{
+    /* height: 45vh; */
+    width: 100%;
+    overflow-x:hidden;
+  }
 
+}
 /* header{
     display: flex;
     margin-top: 20px;
@@ -89,7 +96,7 @@ div.post p.summary{
 }
 
 form.login ,form.register{
-    max-width: 400px;
+    /* max-width: 400px; */
     margin: 0 auto;
 }
 input{

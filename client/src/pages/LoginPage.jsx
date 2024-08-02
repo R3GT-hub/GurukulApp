@@ -38,7 +38,7 @@ export default function LoginPage() {
         <img src="https://cdn.proelevate.in/web-assets/login.svg" alt="Login" />
       </div>
       <div className="login-form-container">
-        <form id="contact" className="login" onSubmit={login}>
+        <form  className="login" onSubmit={login}>
           <h1>Login</h1>
           <input
             type="text"

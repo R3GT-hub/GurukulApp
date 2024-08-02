@@ -174,3 +174,16 @@
     font-size: 2rem;
     color: #333;
   }
+  @media (max-width: 768px) {
+    .hero-content h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+    .hero-content h1 .gurukul{
+      color: #0073e6;;
+      font-size: 5rem;
+    }
+    
+  }
