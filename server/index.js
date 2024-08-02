@@ -9,19 +9,20 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const multer = require("multer");
 const fs = require("fs");
-
+const dotenv=require("dotenv");
 const app = express();
 
+dotenv.config();
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 app.use(express.json());
 app.use(cookieParser());
 
 const uploadMiddleware = multer({ dest: "uploads/" });
-const secret = "saranshsdemicrosoft";
+const secret = process.env.secret;
 
 const connect = async () => {
   await mongoose.connect(
-    "mongodb+srv://saransh2002sharma:KnX9HiMxS8qomdCM@cluster0.tljzb6d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    process.env.url,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
