@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const uploadMiddleware = multer({ dest: "uploads/" });
-const secret = "saranshsdesaranshsde";
+const secret = "saranshsdemicrosoft";
 
 const connect = async () => {
   await mongoose.connect(
@@ -182,7 +182,7 @@ app.delete("/post/:id", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("hi yash");
+  res.send("Gurukul Server");
 });
 
 app.listen(4000, () => {

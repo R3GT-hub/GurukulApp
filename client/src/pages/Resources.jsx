@@ -42,7 +42,7 @@ export default function IndexPage() {
           posts.map(post => (
             <Resource {...post} key={post._id} />
           ))
-        ) : null
+        ) :  <p>Please sign in to see the posts.</p>
       ) : (
         <p>Please sign in to see the posts.</p>
       )}

@@ -48,7 +48,7 @@ export default function IndexPage() {
             <Post {...post} key={post._id} isAdmin={userInfo.isAdmin} />
           ))
         ) : (
-          <p>No posts available.</p>
+          <p>Please sign in to see the posts.</p>
         )
       ) : (
         <p>Please sign in to see the posts.</p>
